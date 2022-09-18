@@ -1,21 +1,23 @@
 #!/bin/sh
 
-if [ "$(id -u)" -ne 0 ]; then
-	echo "must run script with root privileges"
-	exit 1
-fi
-
-if ! command -v audacious >/dev/null; then
-    echo "Audacious is not installed"
-    exit 1
-fi
-
 SCRIPT_DIR=$(readlink -f "$0")
 SRC_DIR="${SCRIPT_DIR}/src"
 
+error_exit() {
+    echo "$1" >&2
+    exit "${2:-1}"
+}
+
+if [ "$(id -u)" -ne 0 ]; then
+	error_exit "must run script with root privileges"
+fi
+
+if ! command -v audacious >/dev/null; then
+    error_exit "Audacious is not installed"
+fi
+
 if [ ! -d "${SRC_DIR}" ]; then
-    echo "skins source directory does not exist"
-    exit 1
+    error_exit "skins directory does not exist"
 fi
 
 DST_DIR="/usr/share/audacious/Skins"
