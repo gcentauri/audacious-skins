@@ -1,1 +1,1 @@
-# Winamp Skins
+# Audacious Skins Collection
