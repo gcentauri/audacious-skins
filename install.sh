@@ -10,7 +10,8 @@ if ! command -v audacious >/dev/null; then
     exit 1
 fi
 
-SRC_DIR="./skins"
+SCRIPT_DIR=$(readlink -f "$0")
+SRC_DIR="${SCRIPT_DIR}/src"
 
 if [ ! -d "${SRC_DIR}" ]; then
     echo "skins source directory does not exist"
